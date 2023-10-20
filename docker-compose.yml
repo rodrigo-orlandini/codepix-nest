@@ -7,10 +7,11 @@ services:
   #     - .:/home/node/app
 
   codebank-database:
-    image: bitnami/postgresql
-    ports:
-      - 5432:5432
+    image: postgres:16-alpine
+    restart: always
+    tty: true
     environment:
-      - POSTGRESQL_USERNAME=postgresman
-      - POSTGRESQL_PASSWORD=root
-      - POSTGRESQL_DATABASE=nest
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=codebank
+    ports:
+      - "5433:5432"

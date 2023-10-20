@@ -29,7 +29,6 @@ module.exports = {
 		"curly": "error",
 		"eqeqeq": "error",
 		"func-names": "error",
-		"indent": [ "error", "tab" ],
 		"key-spacing": [ "error", { "beforeColon": false, "afterColon": true } ],
 		"new-parens": "error",
 		"newline-before-return": "error",
