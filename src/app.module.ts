@@ -6,21 +6,19 @@ import { AppService } from "./app.service";
 
 import { BankAccount } from "./bank-accounts/entities/bank-account.entity";
 import { BankAccountsModule } from "./bank-accounts/bank-accounts.module";
+import { PixKey } from "./pix-keys/entities/pix-key.entity";
+import { PixKeysModule } from "./pix-keys/pix-keys.module";
 
 @Module({
 	imports: [
 		TypeOrmModule.forRoot({
 			type: "postgres",
 			url: "postgresql://postgres:root@localhost:5433/codebank",
-			// host: "localhost",
-			// username: "development",
-			// password: "development",
-			// database: "development",
-			// port: 5433,
-			entities: [BankAccount],
+			entities: [BankAccount, PixKey],
 			synchronize: true
 		}),
-		BankAccountsModule
+		BankAccountsModule,
+		PixKeysModule
 	],
 	controllers: [AppController],
 	providers: [AppService]
