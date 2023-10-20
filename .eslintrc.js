@@ -21,6 +21,29 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-		'prettier/prettier': 'off'
+		'prettier/prettier': 'off',
+		"arrow-spacing": "error",
+		"comma-dangle": "error",
+		"comma-style": "error",
+		"consistent-this": "error",
+		"curly": "error",
+		"eqeqeq": "error",
+		"func-names": "error",
+		"indent": [ "error", "tab" ],
+		"key-spacing": [ "error", { "beforeColon": false, "afterColon": true } ],
+		"new-parens": "error",
+		"newline-before-return": "error",
+		"no-else-return": "error",
+		"object-curly-spacing": [ "error", "always" ],
+		"prefer-arrow-callback": "error",
+		"prefer-const": "error",
+		"prefer-template": "error",
+		"quotes": [ "error", "double" ],
+		"semi": [ "error", "always" ],
+		"sort-imports": [ "error", { 
+			"ignoreCase": true, 
+			"ignoreDeclarationSort": true 
+		}],
+		"space-before-blocks": ["error", "always"]
   },
 };
