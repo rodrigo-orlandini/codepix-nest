@@ -1,13 +1,16 @@
 services:
-  backend:
-    build: .
-    ports:
-      - 3000:3000
-    volumes:
-      - .:/home/node/app
+  # backend:
+  #   build: .
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - .:/home/node/app
 
-  database:
-    image: postgres:13-alpine
+  codebank-database:
+    image: bitnami/postgresql
+    ports:
+      - 5432:5432
     environment:
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: nest
+      - POSTGRESQL_USERNAME=postgresman
+      - POSTGRESQL_PASSWORD=root
+      - POSTGRESQL_DATABASE=nest
