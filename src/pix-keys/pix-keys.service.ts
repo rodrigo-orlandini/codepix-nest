@@ -7,14 +7,14 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { PixKey, PixKeyKind } from "./entities/pix-key.entity";
 import { BankAccount } from "src/bank-accounts/entities/bank-account.entity";
 
-import { PixKeyFindResult } from "./pix-keys.grpc";
+import { PixKeyFindResult, PixService } from "./pix-keys.grpc";
 import { CreatePixKeyDto } from "./dto/create-pix-key.dto";
 
 import { PixKeyAlreadyExistsError, PixKeyGRPCUnknownError } from "./pix-keys.error";
 
 @Injectable()
 export class PixKeysService implements OnModuleInit {
-	private pixGRPCService: any;
+	private pixGRPCService: PixService;
 
 	constructor(
 		@InjectRepository(PixKey)
@@ -42,7 +42,13 @@ export class PixKeysService implements OnModuleInit {
 			return this.createRemotePixKeyIfNotExists(bankAccountId, remotePixKey);
 		}
 
+		const createdRemotePixKey = await lastValueFrom(this.pixGRPCService.registerPixKey({
+			...createPixKeyDto,
+			accountId: bankAccountId
+		}));
+
 		return this.pixKeyRepository.save({
+			id: createdRemotePixKey.id,
 			bank_account_id: bankAccountId,
 			...createPixKeyDto
 		});
@@ -61,7 +67,7 @@ export class PixKeysService implements OnModuleInit {
 		});
 
 		if(hasLocalPixKey) {
-			throw new PixKeyAlreadyExistsError();
+			throw new PixKeyAlreadyExistsError("Pix Key already exists.");
 		}
 
 		return this.pixKeyRepository.save({
