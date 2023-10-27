@@ -20,7 +20,7 @@ export class TransactionsService {
 	) {}
 
   async create(bankAccountId: string, createTransactionDto: CreateTransactionDto) {
-		this.dataSource.transaction(async (manager) => {
+		return this.dataSource.transaction(async (manager) => {
 			const bankAccount = await manager.findOneOrFail(BankAccount, {
 				where: { id: bankAccountId },
 				lock: { mode: "pessimistic_write" }
@@ -42,7 +42,10 @@ export class TransactionsService {
 		});
 	}
 
-  findAll() {
-    return "This action returns all transactions";
+  findAll(bankAccountId: string) {
+    return this.transactionRepository.find({
+			where: { bank_account_id: bankAccountId },
+			order: { created_at: "DESC" }
+		});
   }
 }

@@ -25,3 +25,17 @@ Content-Type: application/json
 	"kind": "email",
 	"key": "johndoe@email.com"
 }
+
+###
+GET http://localhost:3000/bank-accounts/{{bank_account_id}}/transactions
+
+### 
+POST http://localhost:3000/bank-accounts/{{bank_account_id}}/transactions
+Content-Type: application/json
+
+{
+	"pix_key_key": "johndoe@email.com",
+	"pix_key_kind": "email",
+	"description": "My transaction",
+	"amount": 10.00
+}
