@@ -8,6 +8,7 @@ import { BankAccount } from "./bank-accounts/entities/bank-account.entity";
 import { BankAccountsModule } from "./bank-accounts/bank-accounts.module";
 import { PixKey } from "./pix-keys/entities/pix-key.entity";
 import { PixKeysModule } from "./pix-keys/pix-keys.module";
+import { TransactionsModule } from "./transactions/transactions.module";
 
 @Module({
 	imports: [
@@ -18,7 +19,8 @@ import { PixKeysModule } from "./pix-keys/pix-keys.module";
 			synchronize: true
 		}),
 		BankAccountsModule,
-		PixKeysModule
+		PixKeysModule,
+		TransactionsModule
 	],
 	controllers: [AppController],
 	providers: [AppService]
