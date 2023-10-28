@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { ClientsModule, Transport } from "@nestjs/microservices";
 
 import { TransactionsService } from "./transactions.service";
 import { TransactionsController } from "./transactions.controller";
@@ -10,7 +11,16 @@ import { PixKey } from "src/pix-keys/entities/pix-key.entity";
 
 @Module({
 	imports: [
-		TypeOrmModule.forFeature([Transaction, BankAccount, PixKey])
+		TypeOrmModule.forFeature([Transaction, BankAccount, PixKey]),
+		ClientsModule.register([{
+			name: "KAFKA_SERVICE",
+			transport: Transport.KAFKA,
+			options: {
+				client: {
+					brokers: ["localhost:9094"]
+				}
+			}
+		}])
 	],
   controllers: [TransactionsController],
   providers: [TransactionsService]
