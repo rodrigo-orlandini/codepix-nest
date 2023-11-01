@@ -1,15 +1,18 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule, ConfigService } from "@nestjs/config";
+import { ConsoleModule } from "nestjs-console";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 
 import { BankAccount } from "./bank-accounts/entities/bank-account.entity";
-import { BankAccountsModule } from "./bank-accounts/bank-accounts.module";
 import { PixKey } from "./pix-keys/entities/pix-key.entity";
+
+import { BankAccountsModule } from "./bank-accounts/bank-accounts.module";
 import { PixKeysModule } from "./pix-keys/pix-keys.module";
 import { TransactionsModule } from "./transactions/transactions.module";
+import { FixturesModule } from "./fixtures/fixtures.module";
 
 @Module({
 	imports: [
@@ -17,6 +20,7 @@ import { TransactionsModule } from "./transactions/transactions.module";
 			envFilePath: [".env", `.bank-${process.env.BANK_CODE}.env`],
 			isGlobal: true
 		}),
+		ConsoleModule,
 		TypeOrmModule.forRootAsync({
 			useFactory: (configService: ConfigService) => ({
 				type: configService.get("TYPEORM_CONNECTION") as any,
@@ -32,7 +36,8 @@ import { TransactionsModule } from "./transactions/transactions.module";
 		}),
 		BankAccountsModule,
 		PixKeysModule,
-		TransactionsModule
+		TransactionsModule,
+		FixturesModule
 	],
 	controllers: [AppController],
 	providers: [AppService]
