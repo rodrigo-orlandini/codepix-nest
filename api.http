@@ -1,11 +1,12 @@
+### List all bank accounts
 GET http://localhost:3000/bank-accounts
 
 @bank_account_id = d8cf2c42-7120-472f-8b34-b5769a082755
 
-###
+### Find a bank account by id
 GET http://localhost:3000/bank-accounts/{{bank_account_id}}
 
-### 
+### Create a new bank account
 POST http://localhost:3000/bank-accounts
 Content-Type: application/json
 
@@ -14,10 +15,10 @@ Content-Type: application/json
 	"owner_name": "John Doe"
 }
 
-###
+### List all pix keys from a specific bank account
 GET http://localhost:3000/bank-accounts/{{bank_account_id}}/pix-keys
 
-### 
+### Create a new pix key for a specific bank account
 POST http://localhost:3000/bank-accounts/{{bank_account_id}}/pix-keys
 Content-Type: application/json
 
@@ -26,10 +27,10 @@ Content-Type: application/json
 	"key": "johndoe@email.com"
 }
 
-###
+### List all bank account transactions
 GET http://localhost:3000/bank-accounts/{{bank_account_id}}/transactions
 
-### 
+### Create a new transaction for bank account
 POST http://localhost:3000/bank-accounts/{{bank_account_id}}/transactions
 Content-Type: application/json
 
