@@ -1,6 +1,7 @@
 import { join } from "node:path";
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { ConfigService } from "@nestjs/config";
 
 import { PixKey } from "./entities/pix-key.entity";
 import { BankAccount } from "src/bank-accounts/entities/bank-account.entity";
@@ -12,14 +13,17 @@ import { ClientsModule, Transport } from "@nestjs/microservices";
 @Module({
 	imports: [
 		TypeOrmModule.forFeature([PixKey, BankAccount]),
-		ClientsModule.register([{
+		ClientsModule.registerAsync([{
 			name: "PIX_PACKAGE",
-			transport: Transport.GRPC,
-			options: {
-				url: "http://localhost:50051",
-				package: "github.com.rodrigoorlandini.codepixgo",
-				protoPath: join(__dirname, "proto", "pixkey.proto")
-			}
+			useFactory: (configService: ConfigService) => ({
+				transport: Transport.GRPC,
+				options: {
+					url: configService.get("GRPC_URL"),
+					package: "github.com.rodrigoorlandini.codepixgo",
+					protoPath: join(__dirname, "proto", "pixkey.proto")
+				}
+			}),
+			inject: [ConfigService]
 		}])
 	],
   controllers: [PixKeysController],

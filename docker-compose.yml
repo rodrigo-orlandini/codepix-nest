@@ -3,6 +3,7 @@ services:
   #   build: .
   #   ports:
   #     - 3000:3000
+  #     - 3001:3001
   #   volumes:
   #     - .:/home/node/app
 
@@ -12,6 +13,7 @@ services:
     tty: true
     environment:
       - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=codebank
     ports:
       - "5433:5432"
+    volumes:
+      - .docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
