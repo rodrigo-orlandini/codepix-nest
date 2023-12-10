@@ -1,6 +1,6 @@
 # CodePix - Backend 🏦
 
-A bank integration with central bank to allow usage of pix keys. 
+A bank integration with central bank to allow usage of pix keys. It is available as a RESTful API and connects to central bank with gRPC and Kafka.
 
 ### Techonolgies
 
